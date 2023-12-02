@@ -1,66 +1,55 @@
+// Game.cpp
 #include "Game.h"
+#include <cstdlib>  // for rand function
+#include <ctime>    // for time function
 
-
-Game::Game () {
-
+Game::Game() {
+    // Initialize the game
     for (int i = 0; i < 15; ++i) {
         rooms.push_back(new Room("Room " + std::to_string(i + 1)));
     }
 
-
-    rooms[0] -> setExit("East", rooms[1]);
-    rooms[0] -> setExit("South", rooms[5]);
-rooms[1]->setExit("WEST", rooms[0]);
-    rooms[1]->setExit("SOUTH", rooms[2]);
-
-    rooms[2]->setExit("NORTH", rooms[1]);
-    rooms[2]->setExit("SOUTH", rooms[3]);
-
-    rooms[3]->setExit("NORTH", rooms[2]);
-    rooms[3]->setExit("EAST", rooms[4]);
-
-    rooms[4]->setExit("WEST", rooms[3]);
-    rooms[4]->setExit("SOUTH", rooms[9]);
-
-    rooms[5]->setExit("NORTH", rooms[0]);
-    rooms[5]->setExit("SOUTH", rooms[10]);
-
-    rooms[6]->setExit("NORTH", rooms[5]);
-    rooms[6]->setExit("SOUTH", rooms[7]);
-
-    rooms[7]->setExit("NORTH", rooms[6]);
-    rooms[7]->setExit("SOUTH", rooms[8]);
-    rooms[7]->setExit("EAST", rooms[12]);
-
-    rooms[8]->setExit("WEST", rooms[7]);
-    rooms[8]->setExit("EAST", rooms[9]);
-
-    rooms[9]->setExit("WEST", rooms[8]);
-    rooms[9]->setExit("SOUTH", rooms[14]);
-
-    rooms[10]->setExit("NORTH", rooms[5]);
-    rooms[10]->setExit("SOUTH", rooms[11]);
-
-    rooms[11]->setExit("NORTH", rooms[10]);
-    rooms[11]->setExit("SOUTH", rooms[12]);
-
-    rooms[12]->setExit("NORTH", rooms[11]);
-    rooms[12]->setExit("SOUTH", rooms[13]);
-
-    rooms[13]->setExit("NORTH", rooms[12]);
-    rooms[13]->setExit("EAST", rooms[14]);
-
-    rooms[14]->setExit("WEST", rooms[13]);
-    rooms[14]->setExit("SOUTH", rooms[15]);
-
-    rooms[15]->setExit("NORTH", rooms[14]);
+    // Going in between rooms
+    rooms[0]->setExit("East", rooms[1]);
+    rooms[0]->setExit("South", rooms[5]);
+    rooms[1]->setExit("West", rooms[0]);
+    rooms[1]->setExit("South", rooms[2]);
+    rooms[2]->setExit("North", rooms[1]);
+    rooms[2]->setExit("South", rooms[3]);
+    rooms[3]->setExit("North", rooms[2]);
+    rooms[3]->setExit("East", rooms[4]);
+    rooms[4]->setExit("West", rooms[3]);
+    rooms[4]->setExit("South", rooms[9]);
+    rooms[5]->setExit("North", rooms[0]);
+    rooms[5]->setExit("South", rooms[10]);
+    rooms[6]->setExit("North", rooms[5]);
+    rooms[6]->setExit("South", rooms[7]);
+    rooms[7]->setExit("North", rooms[6]);
+    rooms[7]->setExit("South", rooms[8]);
+    rooms[7]->setExit("East", rooms[12]);
+    rooms[8]->setExit("West", rooms[7]);
+    rooms[8]->setExit("East", rooms[9]);
+    rooms[9]->setExit("West", rooms[8]);
+    rooms[9]->setExit("South", rooms[14]);
+    rooms[10]->setExit("North", rooms[5]);
+    rooms[10]->setExit("South", rooms[11]);
+    rooms[11]->setExit("North", rooms[10]);
+    rooms[11]->setExit("South", rooms[12]);
+    rooms[12]->setExit("North", rooms[11]);
+    rooms[12]->setExit("South", rooms[13]);
+    rooms[13]->setExit("North", rooms[12]);
+    rooms[13]->setExit("East", rooms[14]);
+    rooms[14]->setExit("West", rooms[13]);
+    rooms[14]->setExit("South", rooms[15]);
+    rooms[15]->setExit("North", rooms[14]);
 
     currentPlayerRoom = rooms[0]; // Start the player in the first room
 
     // Add items to random rooms
-    for (int i = 0; i < 10; ++i) {
+    const std::vector<std::string> itemNames = {"broom", "pencil", "eraser", "phone", "laptop"};
+    for (int i = 0; i < 5; ++i) {
         int randomRoomIndex = rand() % 15;
-        rooms[randomRoomIndex]->addItem(new Item("Item " + std::to_string(i + 1)));
+        rooms[randomRoomIndex]->addItem(new Item(itemNames[i]));
     }
 
     player = new Player();
@@ -109,8 +98,8 @@ void Game::play() {
         }
 
         // Check for winning condition
-        if (collectedItems >= 10) {
-            std::cout << "Congratulations! You've collected 10 items and won the game!\n";
+        if (collectedItems >= 5) {
+            std::cout << "Congratulations! You've collected 5 items and won the game!\n";
             break;
         }
 
@@ -167,7 +156,7 @@ void Game::play() {
                 std::cout << "Your inventory is empty.\n";
             }
         } else if (input == "WIN") {
-            std::cout << "Congratulations! You've collected 10 items and won the game!\n";
+            std::cout << "Congratulations! You've collected 5 items and won the game!\n";
             break;
         } else if (input == "QUIT") {
             std::cout << "Thanks for playing. Goodbye!\n";
@@ -182,6 +171,4 @@ void Game::play() {
             }
         }
     }
-
-
 }
