@@ -1,10 +1,10 @@
-// Game.cpp
+
 #include "Game.h"
-#include <cstdlib>  // for rand function
-#include <ctime>    // for time function
+#include <cstdlib> 
+#include <ctime>   
 
 Game::Game() {
-    // Initialize the game
+    // Initialize 
     for (int i = 0; i < 15; ++i) {
         rooms.push_back(new Room("Room " + std::to_string(i + 1)));
     }
@@ -43,9 +43,9 @@ Game::Game() {
     rooms[14]->setExit("South", rooms[15]);
     rooms[15]->setExit("North", rooms[14]);
 
-    currentPlayerRoom = rooms[0]; // Start the player in the first room
+    currentPlayerRoom = rooms[0]; //Starting from room one
 
-    // Add items to random rooms
+    // Add items to rooms
     const std::vector<std::string> itemNames = {"broom", "pencil", "eraser", "phone", "laptop"};
     for (int i = 0; i < 5; ++i) {
         int randomRoomIndex = rand() % 15;
@@ -63,11 +63,11 @@ Game::~Game() {
 }
 
 void Game::play() {
-    int collectedItems = 0;  // Added variable to count collected items
+    int collectedItems = 0;  //Count collected items
 
-    // Game loop
+    
     while (true) {
-        // Print current room description
+        //Current room description
         std::cout << "You are in " << currentPlayerRoom->getDescription() << ".\n";
 
         // Print exits
@@ -97,7 +97,7 @@ void Game::play() {
             std::cout << "\n";
         }
 
-        // Check for winning condition
+        //Winning conditions
         if (collectedItems >= 5) {
             std::cout << "Congratulations! You've collected 5 items and won the game!\n";
             break;
