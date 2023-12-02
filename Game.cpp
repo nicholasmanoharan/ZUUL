@@ -1,18 +1,59 @@
 #include "Game.h"
 
-// Constructor to initialize the game
-Game::Game() {
-    // Create 15 rooms
+
+Game::Game () {
+
     for (int i = 0; i < 15; ++i) {
         rooms.push_back(new Room("Room " + std::to_string(i + 1)));
     }
 
-    // Connect rooms with exits
-    rooms[0]->setExit("East", rooms[1]);
-    rooms[0]->setExit("South", rooms[5]);
-    rooms[1]->setExit("West", rooms[0]);
-    rooms[1]->setExit("South", rooms[2]);
-    // ... (similarly for other rooms)
+
+    rooms[0] -> setExit("East", rooms[1]);
+    rooms[0] -> setExit("South", rooms[5]);
+rooms[1]->setExit("WEST", rooms[0]);
+    rooms[1]->setExit("SOUTH", rooms[2]);
+
+    rooms[2]->setExit("NORTH", rooms[1]);
+    rooms[2]->setExit("SOUTH", rooms[3]);
+
+    rooms[3]->setExit("NORTH", rooms[2]);
+    rooms[3]->setExit("EAST", rooms[4]);
+
+    rooms[4]->setExit("WEST", rooms[3]);
+    rooms[4]->setExit("SOUTH", rooms[9]);
+
+    rooms[5]->setExit("NORTH", rooms[0]);
+    rooms[5]->setExit("SOUTH", rooms[10]);
+
+    rooms[6]->setExit("NORTH", rooms[5]);
+    rooms[6]->setExit("SOUTH", rooms[7]);
+
+    rooms[7]->setExit("NORTH", rooms[6]);
+    rooms[7]->setExit("SOUTH", rooms[8]);
+    rooms[7]->setExit("EAST", rooms[12]);
+
+    rooms[8]->setExit("WEST", rooms[7]);
+    rooms[8]->setExit("EAST", rooms[9]);
+
+    rooms[9]->setExit("WEST", rooms[8]);
+    rooms[9]->setExit("SOUTH", rooms[14]);
+
+    rooms[10]->setExit("NORTH", rooms[5]);
+    rooms[10]->setExit("SOUTH", rooms[11]);
+
+    rooms[11]->setExit("NORTH", rooms[10]);
+    rooms[11]->setExit("SOUTH", rooms[12]);
+
+    rooms[12]->setExit("NORTH", rooms[11]);
+    rooms[12]->setExit("SOUTH", rooms[13]);
+
+    rooms[13]->setExit("NORTH", rooms[12]);
+    rooms[13]->setExit("EAST", rooms[14]);
+
+    rooms[14]->setExit("WEST", rooms[13]);
+    rooms[14]->setExit("SOUTH", rooms[15]);
+
+    rooms[15]->setExit("NORTH", rooms[14]);
 
     currentPlayerRoom = rooms[0]; // Start the player in the first room
 
@@ -25,7 +66,6 @@ Game::Game() {
     player = new Player();
 }
 
-// Destructor to clean up dynamically allocated memory
 Game::~Game() {
     for (auto room : rooms) {
         delete room;
@@ -33,9 +73,8 @@ Game::~Game() {
     delete player;
 }
 
-// Main game loop
 void Game::play() {
-    int collectedItems = 0;  // Variable to count collected items
+    int collectedItems = 0;  // Added variable to count collected items
 
     // Game loop
     while (true) {
@@ -143,4 +182,6 @@ void Game::play() {
             }
         }
     }
+
+
 }
